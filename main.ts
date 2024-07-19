@@ -15,12 +15,13 @@ let data = await fetchData(apiLink);
 let startQuiz = async () => {
     let score:number = 0
     //for user name
-    let name = await inquirer.prompt({
+    let name = await inquirer.prompt(
+        {
         type: "input",
         name: "fName",
         message:  "What Is Your Name"
-    
-    });
+        }   
+    );
 
 for(let i=1 ; i <= 5 ; i++){
     let answers = [...data[i].incorrect_answers,data[i].correct_answer];

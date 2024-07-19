@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import inquirer from "inquirer";
-const apiLink = "https://opentdb.com/api.php?amount=4&category=18&difficulty=easy&type=multiple";
+import chalk from "chalk";
+const apiLink = "https://opentdb.com/api.php?amount=6&category=18&difficulty=easy&type=multiple";
 let fetchData = async (data) => {
     let fetchQuiz = await fetch(data);
     let res = await fetchQuiz.json();
-    return res;
+    return res.results;
 };
 let data = await fetchData(apiLink);
 let startQuiz = async () => {
@@ -15,7 +16,22 @@ let startQuiz = async () => {
         name: "fName",
         message: "What Is Your Name"
     });
+    for (let i = 1; i <= 5; i++) {
+        let answers = [...data[i].incorrect_answers, data[i].correct_answer];
+        let ans = await inquirer.prompt({
+            type: "list",
+            name: "quiz",
+            message: data[i].question,
+            choices: answers.map((val) => val),
+        });
+        if (ans.quiz === data[i].correct_answer) {
+            score++;
+            console.log(chalk.bold.italic.yellow("Correct"));
+        }
+        else {
+            console.log(`Correct answer is ${chalk.bold.italic.red(data[i].correct_answer)}`);
+        }
+    }
+    console.log(chalk.green.bold(`Congratulations ${name.fName}! Your Final Score is ${chalk.red.bold(score)} out of${chalk.red.bold("5")}`));
 };
-for (let i = 1; i <= 5; i++) {
-    let answers = [...data[i].incorrect_answers, data[i].correct_answer];
-}
+startQuiz();
