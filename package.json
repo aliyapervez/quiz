@@ -1,13 +1,14 @@
 {
-  "name": "typescript",
-  "version": "1.0.0",
+  "name": "@aliyapervez/amazing_quiz",
+  "version": "1.0.1",
   "description": "This is CLI based Quiz project using Typescript, Node.js, and Inquirer",
   "main": "index.js",
   "type": "module",
+  "bin": "index.js",
   "publishConfig": {
     "access": "public"
   },
-  "bin": "index.js",
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
